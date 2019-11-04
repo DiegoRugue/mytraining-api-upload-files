@@ -7,10 +7,12 @@ const app = express();
 
 app.use(express.json());
 
-fs.exists(join(process.cwd(), 'uploads'), exists => {
+const path = join(process.cwd(), 'uploads');
+
+fs.exists(path, exists => {
     if (exists) return;
 
-    fs.mkdir(join(process.cwd(), 'uploads'), err => {
+    fs.mkdir(path, err => {
         if (err) throw err;
 
         return;
@@ -25,9 +27,6 @@ app.post('/file', async (req, res) => {
     }
 
     const convertedFile = Buffer.from(file, 'base64');
-
-    const path = join(process.cwd(), 'uploads');
-
     const filename = `${uuid()}-${Date.now()}.png`;
 
     fs.writeFile(join(path, filename), convertedFile, err => {
@@ -37,6 +36,6 @@ app.post('/file', async (req, res) => {
     });
 });
 
-app.use(express.static(join(process.cwd(), 'uploads')));
+app.use(express.static(path));
 
 module.exports = app;
