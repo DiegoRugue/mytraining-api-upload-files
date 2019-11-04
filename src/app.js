@@ -19,6 +19,10 @@ fs.exists(path, exists => {
     });
 });
 
+app.get('/ping', (req, res) => {
+    res.json({ ping: new Date() });
+});
+
 app.post('/file', async (req, res) => {
     let file = req.body.file;
 
