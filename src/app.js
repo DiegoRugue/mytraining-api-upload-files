@@ -7,6 +7,16 @@ const app = express();
 
 app.use(express.json());
 
+fs.exists(join(process.cwd(), 'uploads'), exists => {
+    if (exists) return;
+
+    fs.mkdir(join(process.cwd(), 'uploads'), err => {
+        if (err) throw err;
+
+        return;
+    });
+});
+
 app.post('/file', async (req, res) => {
     let file = req.body.file;
 
