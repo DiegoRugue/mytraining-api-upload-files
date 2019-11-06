@@ -36,7 +36,7 @@ app.post('/file', async (req, res) => {
     fs.writeFile(join(path, filename), convertedFile, err => {
         if (err) res.json({ error: err });
 
-        res.json({ path: filename });
+        res.send(filename);
     });
 });
 
